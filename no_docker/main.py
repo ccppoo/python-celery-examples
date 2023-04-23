@@ -1,10 +1,9 @@
 from app import add
 from celery.app.task import Task
 from celery.result import AsyncResult
-import asyncio
 import uvicorn
-
 from fastapi import FastAPI
+
 
 BROKER = "amqp://admin:password@localhost:5672//"
 
@@ -20,8 +19,6 @@ def on_raw_message(body):
 async def calculate():
     a = add.apply_async(args=(10, 20))
     return a.task_id
-    aa = a.get(on_message=on_raw_message, propagate=False)
-    return aa
 
 
 @app.get("/task")

@@ -1,0 +1,6 @@
+requests
+celery
+fastapi
+uvicorn
+gevent
+redis

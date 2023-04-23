@@ -1,7 +1,4 @@
-from time import sleep, time
-
 from celery import Celery
-from celery.app.task import Task
 
 app = Celery(
     "myapp",
@@ -11,8 +8,6 @@ app = Celery(
 )
 
 
-@app.task
+@app.task(name="addTask")  # Named task
 def add(x, y):
-    start = time()
-    sleep(1)
     return x + y
