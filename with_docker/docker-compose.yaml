@@ -1,0 +1,36 @@
+services:
+
+  app:
+    build: 
+      context: .
+      dockerfile: ./app/Dockerfile
+    depends_on:
+      - worker
+    ports:
+      - 8000:8000
+
+  worker:
+    build: 
+      context: .
+      dockerfile: ./worker/Dockerfile
+    depends_on:
+      - redis
+      - rabbitmq
+
+  redis:
+    image: redis
+    command: redis-server --port 6379
+    labels:
+      - "name=redis"
+      - "mode=standalone"
+    ports:
+      - 6379:6379
+
+  rabbitmq:
+    image: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      RABBITMQ_DEFAULT_USER: "admin"
+      RABBITMQ_DEFAULT_PASS: "password"
