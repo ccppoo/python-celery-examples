@@ -16,7 +16,3 @@ def add(x, y):
     start = time()
     sleep(1)
     return x + y
-
-
-if __name__ == "__main__":
-    app.start()
